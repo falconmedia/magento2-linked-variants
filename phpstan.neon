@@ -1,0 +1,11 @@
+parameters:
+    level: 6
+    paths:
+        - src
+    treatPhpDocTypesAsCertain: false
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        # Magento models expose their data through DataObject::__call.
+        - '#^Call to an undefined method Magento\\Catalog\\Model\\Product::(set|get)[A-Z]\w*\(\)\.$#'
+        # The attribute behind the EAV config is a catalog attribute, which has store labels.
+        - '#^Call to an undefined method Magento\\Eav\\Model\\Entity\\Attribute\\AbstractAttribute::getStoreLabel\(\)\.$#'

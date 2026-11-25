@@ -1,0 +1,42 @@
+{
+    "name": "falconmedia/magento2-linked-variants",
+    "description": "Links products that are variants of each other, such as colours, sizes or scents, and shows them as a row of tiles above the options on the product page",
+    "type": "magento2-module",
+    "license": "MIT",
+    "require": {
+        "php": ">=8.3 <8.6",
+        "magento/framework": "*",
+        "magento/module-backend": "*",
+        "magento/module-catalog": "*",
+        "magento/module-catalog-inventory": "*",
+        "magento/module-config": "*",
+        "magento/module-eav": "*",
+        "magento/module-store": "*",
+        "magento/module-swatches": "*",
+        "magento/module-ui": "*",
+        "psr/log": "*",
+        "hyva-themes/magento2-theme-module": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "FalconMedia\\LinkedVariants\\": "src/"
+        },
+        "files": [
+            "src/registration.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "FalconMedia\\LinkedVariants\\Test\\Unit\\": "tests/Unit/"
+        }
+    },
+    "keywords": [
+        "magento2",
+        "mage-os",
+        "hyva",
+        "variants",
+        "swatches",
+        "product-links"
+    ],
+    "homepage": "https://github.com/falconmedia/magento2-linked-variants"
+}

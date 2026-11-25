@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     FalconMedia_LinkedVariants
+ * @author      Henk Valk (henk@falconmedia.nl)
+ *
+ * Copyright (c) Falcon Media (www.falconmedia.nl)
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="product.info.form">
+            <block class="FalconMedia\LinkedVariants\Block\Product\LinkedVariants"
+                   name="falconmedia.linked.variants"
+                   template="FalconMedia_LinkedVariants::product/view/linked-variants.phtml"
+                   before="-">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">FalconMedia\LinkedVariants\ViewModel\Variants</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

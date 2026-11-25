@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     FalconMedia_LinkedVariants
+ * @author      Henk Valk (henk@falconmedia.nl)
+ *
+ * Copyright (c) Falcon Media (www.falconmedia.nl)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="variant" xsi:type="array">
+                    <item name="class" xsi:type="string">FalconMedia\LinkedVariants\Ui\DataProvider\Product\Form\Modifier\LinkedVariants</item>
+                    <item name="sortOrder" xsi:type="number">111</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="FalconMedia\LinkedVariants\Ui\DataProvider\Product\Form\Modifier\LinkedVariants">
+        <arguments>
+            <argument name="scopeName" xsi:type="string">product_form.product_form</argument>
+        </arguments>
+    </type>
+    <!-- Attribute dropdowns of the Linked Variants configuration; the empty label is translated when rendered. -->
+    <virtualType name="FalconMedia\LinkedVariants\Model\Config\Source\LabelAttributes" type="FalconMedia\LinkedVariants\Model\Config\Source\AttributeOptions">
+        <arguments>
+            <argument name="emptyLabel" xsi:type="string">-- Text after the last dash in the product name --</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="FalconMedia\LinkedVariants\Model\Config\Source\SwatchAttributes" type="FalconMedia\LinkedVariants\Model\Config\Source\AttributeOptions">
+        <arguments>
+            <argument name="emptyLabel" xsi:type="string">-- Same as name attribute --</argument>
+        </arguments>
+    </virtualType>
+</config>

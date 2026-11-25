@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     FalconMedia_LinkedVariants
+ * @author      Henk Valk (henk@falconmedia.nl)
+ *
+ * Copyright (c) Falcon Media (www.falconmedia.nl)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="hyva_config_generate_before">
+        <observer name="falconmedia_linked_variants_hyva_config" instance="FalconMedia\LinkedVariants\Observer\RegisterModuleForHyvaConfig"/>
+    </event>
+</config>

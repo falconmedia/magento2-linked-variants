@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     FalconMedia_LinkedVariants
+ * @author      Henk Valk (henk@falconmedia.nl)
+ *
+ * Copyright (c) Falcon Media (www.falconmedia.nl)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="falconmedia_linked_variants" translate="label" sortOrder="425" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Linked Variants</label>
+            <tab>catalog</tab>
+            <resource>FalconMedia_LinkedVariants::config</resource>
+            <group id="general" translate="label comment" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Product Page</label>
+                <comment>Variants are linked per product under Related Products, Up-Sells, and Cross-Sells &gt; Linked Variants. Linking one product to another links every product in that group to each other.</comment>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Show Linked Variants on the Product Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Title</label>
+                    <comment>Shown above the row, followed by the name of the current variant. Leave empty to use the label of the name attribute.</comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="label_attribute" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Name Attribute</label>
+                    <comment>Dropdown or multiple select attribute that names a variant, for example color, size or scent.</comment>
+                    <source_model>FalconMedia\LinkedVariants\Model\Config\Source\LabelAttributes</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="display_mode" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Display</label>
+                    <comment>Product image: a thumbnail of each product. Swatch: the swatch of the swatch attribute, with the product image as fallback. Text only: the name of each variant.</comment>
+                    <source_model>FalconMedia\LinkedVariants\Model\Config\Source\DisplayMode</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="swatch_attribute" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Swatch Attribute</label>
+                    <comment>Attribute whose visual swatch is shown. Leave on the default to use the name attribute.</comment>
+                    <source_model>FalconMedia\LinkedVariants\Model\Config\Source\SwatchAttributes</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                        <field id="display_mode">swatch</field>
+                    </depends>
+                </field>
+                <field id="show_out_of_stock" translate="label comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Show Out of Stock Variants</label>
+                    <comment>Out of stock variants are shown dimmed and still link to their product page.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="out_of_stock_text" translate="label comment" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Out of Stock Text</label>
+                    <comment>Read out by screen readers for out of stock variants. Leave empty for the default text.</comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                        <field id="show_out_of_stock">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     FalconMedia_LinkedVariants
+ * @author      Henk Valk (henk@falconmedia.nl)
+ *
+ * Copyright (c) Falcon Media (www.falconmedia.nl)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="FalconMedia\LinkedVariants\Api\VariantLinksInterface" type="FalconMedia\LinkedVariants\Model\VariantLinks"/>
+    <!-- Registers the variant link type next to related, up-sell and cross-sell. -->
+    <type name="Magento\Catalog\Model\Product\LinkTypeProvider">
+        <plugin name="falconmedia_linked_variants_link_type" type="FalconMedia\LinkedVariants\Plugin\Catalog\RegisterLinkType"/>
+    </type>
+    <type name="Magento\Catalog\Model\ProductLink\CollectionProvider">
+        <arguments>
+            <argument name="providers" xsi:type="array">
+                <item name="variant" xsi:type="object">FalconMedia\LinkedVariants\Model\ProductLink\CollectionProvider\Variant</item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- Keeps every member of a variant group linked to every other member after a product save. -->
+    <type name="Magento\Catalog\Model\ResourceModel\Product">
+        <plugin name="falconmedia_linked_variants_sync_group" type="FalconMedia\LinkedVariants\Plugin\Catalog\SyncGroupOnProductSave" sortOrder="100"/>
+    </type>
+    <!-- Same for single links saved or deleted through the product link repository (REST). -->
+    <type name="Magento\Catalog\Api\ProductLinkRepositoryInterface">
+        <plugin name="falconmedia_linked_variants_sync_group" type="FalconMedia\LinkedVariants\Plugin\Catalog\SyncGroupOnLinkRepository" sortOrder="100"/>
+    </type>
+</config>

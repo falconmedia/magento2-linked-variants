@@ -1,0 +1,80 @@
+<?php
+
+/**
+ * @package     FalconMedia_LinkedVariants
+ * @author      Henk Valk (henk@falconmedia.nl)
+ *
+ * Copyright (c) Falcon Media (www.falconmedia.nl)
+ */
+
+declare(strict_types=1);
+
+use FalconMedia\LinkedVariants\Block\Product\LinkedVariants;
+use FalconMedia\LinkedVariants\Model\Config\Source\DisplayMode;
+use FalconMedia\LinkedVariants\Model\Storefront\SwatchResolver;
+use FalconMedia\LinkedVariants\ViewModel\Variants;
+use Magento\Framework\Escaper;
+
+/** @var LinkedVariants $block */
+/** @var Escaper $escaper */
+/** @var Variants $variantsViewModel */
+
+$variantsViewModel = $block->getData('view_model');
+$imageId = (string) $block->getData('image_id');
+$variants = $variantsViewModel->getVariants($imageId);
+$current = $variantsViewModel->getCurrentVariant($imageId);
+$title = $variantsViewModel->getTitle();
+$mode = $variantsViewModel->getDisplayMode();
+$outOfStockText = $variantsViewModel->getOutOfStockText();
+?>
+<div class="fmlv fmlv--<?= $escaper->escapeHtmlAttr($mode) ?>">
+    <p class="fmlv__legend">
+        <?= $escaper->escapeHtml($title) ?>:
+        <?php if ($current): ?>
+            <strong class="fmlv__current-label"><?= $escaper->escapeHtml($current->label) ?></strong>
+        <?php endif; ?>
+    </p>
+    <ul class="fmlv__list" aria-label="<?= $escaper->escapeHtmlAttr($title) ?>">
+        <?php foreach ($variants as $variant): ?>
+            <?php
+            $tagClass = 'fmlv__tile'
+                . ($variant->isCurrent ? ' fmlv__tile--current' : '')
+                . (!$variant->inStock ? ' fmlv__tile--unavailable' : '');
+            $showSwatch = $mode === DisplayMode::SWATCH && $variant->swatchType !== SwatchResolver::NONE;
+            ?>
+            <li class="fmlv__item">
+                <?php if ($variant->isCurrent): ?>
+                    <span class="<?= $escaper->escapeHtmlAttr($tagClass) ?>" aria-current="page">
+                <?php else: ?>
+                    <a class="<?= $escaper->escapeHtmlAttr($tagClass) ?>"
+                       href="<?= $escaper->escapeUrl($variant->url) ?>">
+                <?php endif; ?>
+                    <?php if ($showSwatch && $variant->swatchType === SwatchResolver::COLOR): ?>
+                        <span class="fmlv__swatch"
+                              style="background-color: <?= $escaper->escapeHtmlAttr($variant->swatchValue) ?>"></span>
+                    <?php elseif ($showSwatch && $variant->swatchType === SwatchResolver::IMAGE): ?>
+                        <img class="fmlv__swatch fmlv__swatch--image"
+                             src="<?= $escaper->escapeUrl($variant->swatchValue) ?>"
+                             loading="lazy"
+                             alt="">
+                    <?php elseif ($mode !== DisplayMode::TEXT): ?>
+                        <img class="fmlv__image"
+                             src="<?= $escaper->escapeUrl($variant->imageUrl) ?>"
+                             width="<?= (int) $variant->imageWidth ?>"
+                             height="<?= (int) $variant->imageHeight ?>"
+                             <?= $variant->isCurrent ? '' : 'loading="lazy"' ?>
+                             alt="">
+                    <?php endif; ?>
+                    <span class="fmlv__label"><?= $escaper->escapeHtml($variant->label) ?></span>
+                    <?php if (!$variant->inStock): ?>
+                        <span class="sr-only"><?= $escaper->escapeHtml($outOfStockText) ?></span>
+                    <?php endif; ?>
+                <?php if ($variant->isCurrent): ?>
+                    </span>
+                <?php else: ?>
+                    </a>
+                <?php endif; ?>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</div>

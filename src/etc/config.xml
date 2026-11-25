@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     FalconMedia_LinkedVariants
+ * @author      Henk Valk (henk@falconmedia.nl)
+ *
+ * Copyright (c) Falcon Media (www.falconmedia.nl)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <falconmedia_linked_variants>
+            <general>
+                <enabled>1</enabled>
+                <title></title>
+                <label_attribute>color</label_attribute>
+                <display_mode>image</display_mode>
+                <swatch_attribute></swatch_attribute>
+                <show_out_of_stock>1</show_out_of_stock>
+                <out_of_stock_text></out_of_stock_text>
+            </general>
+        </falconmedia_linked_variants>
+    </default>
+</config>
